@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Twitch Chat Overlay</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Fuente alternativa similar a F1 -->
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="hamilton" id="username">HAMILTON</span>
+      <div class="radio-row">
+        <span class="mercedes"></span>
+        <span class="radio">RADIO</span>
+      </div>
+    </div>
+    <div class="equalizer">
+      <!-- 40 barras para simular el ecualizador -->
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+    <div class="quote" id="message">
+      “F1 SEASON IS FINISHED, SO ALL I HAVE LEFT IS MAKING IT IN FIGMA.”
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js"></script>
+  <script src="libs/tmi.min.js"></script>
+  <script>
+    const client = new tmi.Client({
+      channels: ['liiukiin']
+    });
+
+    client.connect();
+
+    let hideTimeout;
+
+    function mostrarMensaje(usuario, mensaje, emotes) {
+      document.getElementById('username').textContent = usuario;
+      document.querySelector('.container').style.opacity = '1';
+
+      // Procesar emotes
+      const mensajeProcesado = reemplazarEmotes(mensaje, emotes);
+      document.getElementById('message').innerHTML = `“${mensajeProcesado}”`;
+
+      // Reproducir sonido
+      const audio = new Audio('sounds/alert.mp3');
+      audio.play();
+
+      // Limpiar timeout anterior si existe
+      if (hideTimeout) clearTimeout(hideTimeout);
+      // Ocultar después de 5 segundos
+      hideTimeout = setTimeout(() => {
+        document.querySelector('.container').style.opacity = '0';
+      }, 5000);
+    }
+
+    // Función para reemplazar emotes por imágenes
+    function reemplazarEmotes(text, emotes) {
+      if (!emotes) return text;
+      // Para evitar reemplazos incorrectos, trabajamos con un array de caracteres
+      let splitText = text.split('');
+      // Guardar los reemplazos a realizar
+      let emoteReplacements = [];
+      Object.entries(emotes).forEach(([emoteId, positions]) => {
+        positions.forEach(pos => {
+          const [start, end] = pos.split('-').map(Number);
+          emoteReplacements.push({
+            start,
+            end,
+            id: emoteId
+          });
+        });
+      });
+      // Ordenar de mayor a menor para no romper los índices al reemplazar
+      emoteReplacements.sort((a, b) => b.start - a.start);
+      emoteReplacements.forEach(({start, end, id}) => {
+        // Reemplazar el texto por la imagen del emote
+        splitText.splice(
+          start,
+          end - start + 1,
+          `<img src="https://static-cdn.jtvnw.net/emoticons/v2/${id}/default/dark/2.0" alt="emote" style="height:1.2em;vertical-align:middle;">`
+        );
+      });
+      return splitText.join('');
+    }
+
+    client.on('connected', (address, port) => {
+      console.log('Conectado a Twitch IRC:', address, port);
+    });
+
+    client.on('message', (channel, tags, message, self) => {
+      console.log('Mensaje recibido:', tags['display-name'], message, tags.emotes);
+      mostrarMensaje(tags['display-name'] || tags.username, message, tags.emotes);
+    });
+
+    client.on('disconnected', (reason) => {
+      console.log('Desconectado de Twitch IRC:', reason);
+    });
+
+    // Para pruebas desde consola
+    window.simularMensaje = (usuario, mensaje) => mostrarMensaje(usuario, mensaje, {});
+  </script>
+</body>
+</html>
