@@ -13,7 +13,7 @@
 }
 
 body {
-    background: rgba(0, 0, 0, 0);
+    background: #00000000;
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -23,12 +23,13 @@ body {
   .container {
     max-width: 600px;
     margin: 40px auto;
-    background: rgba(35,36,42,0.95);
+    background: rgba(21,21,30,0.8);
     border-radius: 16px;
-    /* box-shadow: 0 0 40px #0fffc0a0; */
     padding: 32px 24px 24px 24px;
     text-align: center;
-    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), background 0.7s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0);
+    opacity: 1;
     visibility: visible;
   }
   
@@ -36,6 +37,7 @@ body {
     background: rgba(35,36,42,0);
     border: none;
     visibility: hidden;
+    transform: translateY(-100%);
   }
   
   .header {
@@ -60,14 +62,14 @@ body {
   
   .mercedes {
     display: inline-block;
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     background: url('https://res.cloudinary.com/pcsolucion/image/upload/v1742785431/Mercedes-Logo.svg_obpxws.png') no-repeat center/contain;
     margin-right: 8px;
   }
   
   .radio {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     color: #fff;
     letter-spacing: 2px;
     font-family: 'Magistral', Arial, sans-serif;
@@ -111,10 +113,11 @@ body {
   
   .quote {
     margin-top: 32px;
-    font-size: 1.6rem;
+    font-size: 2rem;
     color: #5fffd7;
     font-family: 'Magistral', Arial, sans-serif;
     font-weight: normal;
-    letter-spacing: 1px;
-    line-height: 1.2;
+    letter-spacing: 1.5px;
+    line-height: 1.4;
+    padding: 0 20px;
   }
