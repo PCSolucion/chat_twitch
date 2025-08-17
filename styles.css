@@ -23,7 +23,7 @@ body {
   .container {
     max-width: 600px;
     margin: 40px auto;
-    background: rgba(21, 21, 30, 0.978);
+    background: rgb(21, 21, 30);
     border-radius: 0px;
     padding: 32px 24px 24px 24px;
     text-align: center;
