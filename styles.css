@@ -12,112 +12,227 @@
   font-style: normal;
 }
 
+:root {
+  /* Colores */
+  --team-color: #27F4D2;
+  /* Default value, will be overridden by JS */
+  --text-white: #FFFFFF;
+  --bg-dark: rgba(12, 12, 17, 0.95);
+
+  /* Tamaños */
+  --number-size: 4rem;
+  --driver-name-size: 1.76rem;
+  --radio-label-size: 1.2rem;
+  --message-size: 1.6rem;
+
+  /* Espaciado */
+  --container-padding: 20px;
+  --header-gap: 15px;
+
+  /* Animaciones */
+  --transition-duration: 0.7s;
+  --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 body {
-    background: #00000000;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    font-family: 'Magistral', Arial, sans-serif;
+  background: #00000000;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Magistral', Arial, sans-serif;
+}
+
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+  background: var(--bg-dark);
+  border-radius: 8px;
+  padding: var(--container-padding);
+  text-align: right;
+  transition: all var(--transition-duration) var(--transition-easing);
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+  border-left: 5px solid var(--team-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.container[style*="opacity: 0"] {
+  background: rgba(35, 36, 42, 0);
+  border: none;
+  visibility: hidden;
+  transform: translateX(-100%);
+}
+
+/* ============================================
+   HEADER SECTION
+   ============================================ */
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--header-gap);
+  margin-bottom: 15px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.number {
+  font-size: var(--number-size);
+  color: var(--team-color);
+  font-weight: bold;
+  font-family: 'Chakra Petch', sans-serif;
+  line-height: 0.8;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.driver-name {
+  font-size: var(--driver-name-size);
+  color: var(--text-white);
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.radio-label {
+  font-size: var(--radio-label-size);
+  color: var(--team-color);
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.team-logo {
+  width: 46px;
+  height: 46px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  margin-left: auto;
+  opacity: 0.8;
+}
+
+
+
+/* ============================================
+   EQUALIZER SECTION
+   ============================================ */
+.equalizer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  margin: 10px 0;
+  background: transparent;
+  position: relative;
+}
+
+
+/* Add a line through the equalizer */
+.equalizer::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--team-color);
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.bar {
+  width: 2%;
+  min-width: 3px;
+  background: var(--team-color);
+  border-radius: 2px;
+  opacity: 0.8;
+  height: 10px;
+  z-index: 1;
+  animation: equalizer 1.2s infinite ease-in-out;
+  box-shadow: 0 0 5px var(--team-color);
+}
+
+.bar:nth-child(odd) {
+  animation-delay: 0.1s;
+}
+
+.bar:nth-child(even) {
+  animation-delay: 0.2s;
+}
+
+.bar:nth-child(3n) {
+  animation-delay: 0.3s;
+}
+
+.bar:nth-child(4n) {
+  animation-delay: 0.4s;
+}
+
+.bar:nth-child(5n) {
+  animation-delay: 0.5s;
+}
+
+@keyframes equalizer {
+
+  0%,
+  100% {
+    height: 10px;
+    opacity: 0.6;
   }
-  
-  .container {
-    max-width: 600px;
-    margin: 40px auto;
-    background: rgb(21, 21, 30);
-    border-radius: 0px;
-    padding: 32px 24px 24px 24px;
-    text-align: center;
-    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateY(0);
+
+  20% {
+    height: 35px;
     opacity: 1;
-    visibility: visible;
   }
-  
-  .container[style*="opacity: 0"] {
-    background: rgba(35,36,42,0);
-    border: none;
-    visibility: hidden;
-    transform: translateY(-100%);
-  }
-  
-  .header {
-    margin-bottom: 10px;
-  }
-  
-  .hamilton {
-    font-size: 2.8rem;
-    color: #5fffd7;
-    letter-spacing: 2px;
-    font-family: 'Magistral', Arial, sans-serif;
-    font-weight: bold;
-    display: block;
-  }
-  
-  .radio-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 4px;
-  }
-  
-  .mercedes {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background: url('https://res.cloudinary.com/pcsolucion/image/upload/v1742785431/Mercedes-Logo.svg_obpxws.png') no-repeat center/contain;
-    margin-right: 8px;
-  }
-  
-  .radio {
-    font-size: 1.8rem;
-    color: #fff;
-    letter-spacing: 2px;
-    font-family: 'Magistral', Arial, sans-serif;
-    font-weight: normal;
-  }
-  
-  .equalizer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    width: 100%;
-    height: 48px;
-    margin: 24px 0 16px 0;
-    background: transparent;
-    padding: 0 2px;
-  }
-  
-  .bar {
-    width: 2.2%;
-    min-width: 4px;
-    background: #5fffd7;
-    border-radius: 3px;
-    opacity: 0.7;
+
+  40% {
     height: 20px;
-    animation: equalizer 1.2s infinite ease-in-out;
+    opacity: 0.8;
   }
-  
-  .bar:nth-child(odd) { animation-delay: 0.1s; }
-  .bar:nth-child(even) { animation-delay: 0.2s; }
-  .bar:nth-child(3n) { animation-delay: 0.3s; }
-  .bar:nth-child(4n) { animation-delay: 0.4s; }
-  .bar:nth-child(5n) { animation-delay: 0.5s; }
-  
-  @keyframes equalizer {
-    0%, 100% { height: 20px; opacity: 0.7; }
-    20% { height: 48px; opacity: 1; }
-    40% { height: 32px; opacity: 0.9; }
-    60% { height: 40px; opacity: 1; }
-    80% { height: 24px; opacity: 0.8; }
+
+  60% {
+    height: 30px;
+    opacity: 1;
   }
-  
-  .quote {
-    margin-top: 32px;
-    font-size: 2rem;
-    color: #5fffd7;
-    font-family: 'Magistral', Arial, sans-serif;
-    font-weight: normal;
-    letter-spacing: 1.5px;
-    line-height: 1.4;
-    padding: 0 20px;
+
+  80% {
+    height: 15px;
+    opacity: 0.7;
   }
+}
+
+
+/* ============================================
+   MESSAGE SECTION
+   ============================================ */
+.quote {
+  margin-top: 20px;
+  font-size: var(--message-size);
+  color: #E0E0E0;
+  font-family: 'Magistral', Arial, sans-serif;
+  font-weight: normal;
+  letter-spacing: 1px;
+  line-height: 1.3;
+  padding: 0 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.quote strong {
+  color: var(--team-color);
+}
+
+/* Estilos para emotes */
+.emote-img {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 2px;
+}
