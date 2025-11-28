@@ -1,13 +1,13 @@
 @font-face {
   font-family: 'Magistral';
-  src: url('./fonts/MagistralRegular.otf') format('opentype');
+  src: url('../fonts/MagistralRegular.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Magistral';
-  src: url('./fonts/MagistralBold.otf') format('opentype');
+  src: url('../fonts/MagistralBold.otf') format('opentype');
   font-weight: bold;
   font-style: normal;
 }
@@ -17,7 +17,7 @@
   --team-color: #27F4D2;
   /* Default value, will be overridden by JS */
   --text-white: #FFFFFF;
-  --bg-dark: rgba(12, 12, 17, 0.95);
+  --bg-dark: rgba(12, 12, 17, 0.97);
 
   /* Tamaños */
   --number-size: 4rem;

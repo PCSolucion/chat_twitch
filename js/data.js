@@ -32,17 +32,17 @@ const teams = {
         width: '1.6em'
     },
     alfaRomeo: {
-        color: '#9B0000',
+        color: '#c65151ff',
         logo: 'https://res.cloudinary.com/pcsolucion/image/upload/v1742786780/20210106191506_Alfa_Romeo_Racing__Logo_fly4r8.svg',
         width: '1.6em'
     },
     toroRosso: {
-        color: '#2325cf',
+        color: '#4d4fceff',
         logo: 'https://res.cloudinary.com/pcsolucion/image/upload/v1742786903/racing_bulls-logo_brandlogos.net_bjuef_ygq2em.png',
         width: '1.6em'
     },
     haas: {
-        color: '#BD9E57',
+        color: '#d4aa47ff',
         logo: 'https://res.cloudinary.com/pcsolucion/image/upload/v1745828985/Logo_Haas_F1_vekjlj.png',
         width: '1.6em'
     },
@@ -108,17 +108,7 @@ const userTeams = {
     'ifleky': 'haas'
 };
 
-/**
- * Obtiene un equipo aleatorio
- * @returns {Object} Objeto de equipo con color, logo y width
- */
-function getRandomTeam() {
-    const teamKeys = Object.keys(teams);
-    const randomKey = teamKeys[Math.floor(Math.random() * teamKeys.length)];
-    return teams[randomKey];
-}
-
 // Exportar para uso en otros archivos
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { teams, userNumbers, userTeams, getRandomTeam };
+    module.exports = { teams, userNumbers, userTeams };
 }
